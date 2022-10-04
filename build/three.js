@@ -30515,7 +30515,9 @@
 		constructor(rootNode, path, parsedPath) {
 			this.path = path;
 			this.parsedPath = parsedPath || PropertyBinding.parseTrackName(path);
-			this.node = PropertyBinding.findNode(rootNode, this.parsedPath.nodeName) || rootNode;
+			const targetObject = PropertyBinding.findNode(rootNode, this.parsedPath.nodeName); // if (!targetObject) return;
+
+			this.node = targetObject;
 			this.rootNode = rootNode; // initial state of these methods that calls 'bind'
 
 			this.getValue = this._getValue_unbound;
@@ -30739,7 +30741,8 @@
 			let propertyIndex = parsedPath.propertyIndex;
 
 			if (!targetObject) {
-				targetObject = PropertyBinding.findNode(this.rootNode, parsedPath.nodeName) || this.rootNode;
+				targetObject = PropertyBinding.findNode(this.rootNode, parsedPath.nodeName); // if (!targetObject) return;
+
 				this.node = targetObject;
 			} // set fail state so we can just 'return' on error
 
