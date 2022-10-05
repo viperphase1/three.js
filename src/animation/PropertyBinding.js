@@ -107,11 +107,7 @@ class PropertyBinding {
 		this.path = path;
 		this.parsedPath = parsedPath || PropertyBinding.parseTrackName( path );
 
-		const targetObject = PropertyBinding.findNode( rootNode, this.parsedPath.nodeName );
-
-		// if (!targetObject) return;
-
-		this.node = targetObject;
+		this.node = PropertyBinding.findNode( rootNode, this.parsedPath.nodeName );
 
 		this.rootNode = rootNode;
 
@@ -428,9 +424,6 @@ class PropertyBinding {
 		if ( ! targetObject ) {
 
 			targetObject = PropertyBinding.findNode( this.rootNode, parsedPath.nodeName );
-
-			// if (!targetObject) return;
-
 			this.node = targetObject;
 
 		}
@@ -442,7 +435,7 @@ class PropertyBinding {
 		// ensure there is a value node
 		if ( ! targetObject ) {
 
-			console.error( 'THREE.PropertyBinding: Trying to update node for track: ' + this.path + ' but it wasn\'t found.' );
+			console.warn( 'THREE.PropertyBinding: Trying to update node for track: ' + this.path + ' but it wasn\'t found.' );
 			return;
 
 		}
