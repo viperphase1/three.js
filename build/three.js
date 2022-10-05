@@ -30515,9 +30515,7 @@
 		constructor(rootNode, path, parsedPath) {
 			this.path = path;
 			this.parsedPath = parsedPath || PropertyBinding.parseTrackName(path);
-			const targetObject = PropertyBinding.findNode(rootNode, this.parsedPath.nodeName); // if (!targetObject) return;
-
-			this.node = targetObject;
+			this.node = PropertyBinding.findNode(rootNode, this.parsedPath.nodeName);
 			this.rootNode = rootNode; // initial state of these methods that calls 'bind'
 
 			this.getValue = this._getValue_unbound;
@@ -30741,8 +30739,7 @@
 			let propertyIndex = parsedPath.propertyIndex;
 
 			if (!targetObject) {
-				targetObject = PropertyBinding.findNode(this.rootNode, parsedPath.nodeName); // if (!targetObject) return;
-
+				targetObject = PropertyBinding.findNode(this.rootNode, parsedPath.nodeName);
 				this.node = targetObject;
 			} // set fail state so we can just 'return' on error
 
@@ -30751,7 +30748,7 @@
 			this.setValue = this._setValue_unavailable; // ensure there is a value node
 
 			if (!targetObject) {
-				console.error('THREE.PropertyBinding: Trying to update node for track: ' + this.path + ' but it wasn\'t found.');
+				console.warn('THREE.PropertyBinding: Trying to update node for track: ' + this.path + ' but it wasn\'t found.');
 				return;
 			}
 
